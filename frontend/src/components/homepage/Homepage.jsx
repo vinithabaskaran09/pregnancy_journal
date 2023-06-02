@@ -6,9 +6,9 @@ function Homepage(props) {
     // """Defining state for username and password to store the values"""
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    // const [isLoginSuccess, setisLoginSuccess] = useState(false)
+    const [isLoginSuccess, setisLoginSuccess] = useState("");
     // function to handle form submit 
-   
+
     function login_submit(event) {
         event.preventDefault();
         // alert(username);
@@ -18,20 +18,50 @@ function Homepage(props) {
         fetch("http://localhost:5000/login", {
             method: "POST",
             mode: "cors",
-            headers: {"Content-Type":"application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 username: username,
                 password: password,
             }),
         })
-        .then((response) => console.log(response));
-        ;
+            // .then((response) => response.json())
+            // .then((data) => {
+            //     let message = data.message;
+            //     if (message === true) {
+            //         // To do login succeed
+            //     } else {
+            //         // login failed
+            //     }
+            // })
+    }
+
+    async function login_submit_async(event) {
+        event.preventDefault();
+        let response = await fetch("http://localhost:5000/login", {
+            method: "POST",
+            mode: "cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+            }),
+        });
+        let data = await response.json();
+        let message = data.message;
+        if (message === true) {
+            // To do login succeed
+            setisLoginSuccess("Login successfully")
+            
+        } else {
+            // login failed
+            setisLoginSuccess("Login Failed!!Try again")
+        }
     }
 
     // let abcd = (event) => {
     //     setUsername(event.target.value)
     // };
-    function onUsernameChange(event){
+    function onUsernameChange(event) {
         setUsername(event.target.value)
         // let length = event.target.value.length;
         // console.log(event.target.value[length-1])
@@ -43,12 +73,13 @@ function Homepage(props) {
         // alert(event.target.value)
         // alert(username)
     }
-    function onPasswordChange(event){
+    function onPasswordChange(event) {
         setPassword(event.target.value)
     }
 
     return (
-        <form onSubmit={login_submit}>
+        <form onSubmit={login_submit_async}>
+            
             <h1>Welcome to My Pregancy Journal</h1>
             <label>
                 <p>Username</p>
@@ -62,6 +93,7 @@ function Homepage(props) {
                 <div>
                     <input type="submit" />
                 </div>
+                <p>{isLoginSuccess}</p>
             </label>
 
         </form>
