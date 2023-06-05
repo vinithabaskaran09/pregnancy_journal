@@ -13,7 +13,7 @@ CORS(app)
     
 #     return f"hello"
  
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     
     username = request.json["username"]
@@ -39,8 +39,6 @@ def login():
         # print("success")
         return jsonify({"message":True})
     
-        # return redirect('/top-melons')
-    
     # user_dict = {}
     # for family in families:
     #     print(f"{family}")
@@ -63,7 +61,19 @@ def login():
     # print(f"{password}")
     # return jsonify({"username": username})
 
+@app.route('/api/signup', methods=['POST'])
+def signup():
+    username = request.json["username"]
+    password = request.json["password"]
+    email = request.json["email"]
+    
+   
+    new_family = Family(name=username, email=email, password=password)
+    db.session.add(new_family)
+    db.session.commit()
+    return jsonify({"username":username})
+    
 
 if __name__ == "__main__":
     connect_to_db(app)
-    app.run('0.0.0.0', debug=True,port=5002)
+    app.run('0.0.0.0', debug=True)

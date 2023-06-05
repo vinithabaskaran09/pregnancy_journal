@@ -1,103 +1,33 @@
-// """Creating Homepage"""
+// import { useHistory } from "react-router-dom";
 
-import { useState } from "react";
+// use navigate instead of history fo rreact version 6
+import { useNavigate } from 'react-router-dom';
+function Homepage() {
+    const navigateTo = useNavigate();
 
-function Homepage(props) {
-    // """Defining state for username and password to store the values"""
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [isLoginSuccess, setisLoginSuccess] = useState("");
-    // function to handle form submit 
+    function navigate_to_login() {
+        "Redirect to login page"
+        navigateTo('/login')
+    }
+    
+    function navigate_to_signup() {
+        "redirect to signup page"
+        navigateTo('/signup')
 
-    function login_submit(event) {
-        event.preventDefault();
-        // alert(username);
-        console.log(username)
-        console.log(event.target.username.value)
-        console.log(event.target.password.value)
-        fetch("http://localhost:5000/login", {
-            method: "POST",
-            mode: "cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                username: username,
-                password: password,
-            }),
-        })
-            // .then((response) => response.json())
-            // .then((data) => {
-            //     let message = data.message;
-            //     if (message === true) {
-            //         // To do login succeed
-            //     } else {
-            //         // login failed
-            //     }
-            // })
     }
 
-    async function login_submit_async(event) {
-        event.preventDefault();
-        let response = await fetch("http://localhost:5000/login", {
-            method: "POST",
-            mode: "cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                username: username,
-                password: password,
-            }),
-        });
-        let data = await response.json();
-        let message = data.message;
-        if (message === true) {
-            // To do login succeed
-            setisLoginSuccess("Login successfully")
-            
-        } else {
-            // login failed
-            setisLoginSuccess("Login Failed!!Try again")
-        }
-    }
-
-    // let abcd = (event) => {
-    //     setUsername(event.target.value)
-    // };
-    function onUsernameChange(event) {
-        setUsername(event.target.value)
-        // let length = event.target.value.length;
-        // console.log(event.target.value[length-1])
-        // let x = event.target.value[length-1]
-        // if (x=="."){
-        //     event.preventDefault();
-        //     alert("Invalid Character")
-        // }
-        // alert(event.target.value)
-        // alert(username)
-    }
-    function onPasswordChange(event) {
-        setPassword(event.target.value)
-    }
-
-    return (
-        <form onSubmit={login_submit_async}>
-            
-            <h1>Welcome to My Pregancy Journal</h1>
-            <label>
-                <p>Username</p>
-                <input type="text" id="username" value={username} onChange={onUsernameChange} />
-            </label>
-            <label>
-                <p>Password</p>
-                <input type="text" id="password" value={password} onChange={onPasswordChange} />
-            </label>
-            <label>
-                <div>
-                    <input type="submit" />
-                </div>
-                <p>{isLoginSuccess}</p>
-            </label>
-
-        </form>
-    );
+    return(
+        <form>
+            <h1>Welcome to Pregancy Journal App</h1>
+        <div>
+            <button type= "button" onClick={navigate_to_login} >LogIn</button>
+        </div>
+        <div>
+            <button type= "button" onClick={navigate_to_signup} >SignUp</button>
+        </div>
+    </form>
+    )
 }
+
 
 export default Homepage
