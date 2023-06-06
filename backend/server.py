@@ -60,6 +60,25 @@ def login():
     # print(f"{username}")
     # print(f"{password}")
     # return jsonify({"username": username})
+@app.route('/api/username', methods=['POST'])
+
+def username_check():
+    username = request.json["username"]
+    userfromdb = db.session.query(Family).filter(Family.name==username).first()
+    if userfromdb != None:
+        return jsonify({"available":False})
+    else:
+        return jsonify({"available":True})
+    
+@app.route('/api/email', methods=['POST'])
+def email_check():
+    email = request.json["email"]
+    emailfromdb = db.session.query(Family).filter(Family.email==email).first()
+    if emailfromdb != None:
+        return jsonify({"available":False})
+    else:
+        return jsonify({"available":True})
+    
 
 @app.route('/api/signup', methods=['POST'])
 def signup():
@@ -67,11 +86,19 @@ def signup():
     password = request.json["password"]
     email = request.json["email"]
     
-   
-    new_family = Family(name=username, email=email, password=password)
-    db.session.add(new_family)
-    db.session.commit()
-    return jsonify({"username":username})
+    userfromdb = db.session.query(Family).filter(Family.name==username).first()
+    print(userfromdb)
+    if userfromdb != None:
+        # raise Exception()
+        return jsonify({"message":"username is already taken"})
+    
+    else:
+        new_family = Family(name=username, email=email, password=password)
+        db.session.add(new_family)
+        db.session.commit()
+        return jsonify({"message":"Successfully created the account redirecting to login page"})
+        
+    # return jsonify({"username":username})
     
 
 if __name__ == "__main__":
