@@ -1,13 +1,20 @@
 // """Creating Login Page"""
 
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login(props) {
     // """Defining state for username and password to store the values"""
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isLoginSuccess, setisLoginSuccess] = useState("");
 
+    const navigateTo = useNavigate();
+    
+    function navigate_to_account() {
+        "Redirect to login page"
+        navigateTo('/account')
+    }
     // function to handle form submit 
     function login_submit(event) {
         event.preventDefault();
@@ -27,14 +34,18 @@ function Login() {
             .then((response) => response.json())
             .then((data) => {
                 let message = data.message;
+                let family_id = data.family_id
                 if (message === true) {
                     // To do login succeed
                     setisLoginSuccess("Login successfully")
+                    props.setSessionUsername(username)
+                    props.setSessionFamilyId(family_id)
                 } else {
                     // login failed
                     setisLoginSuccess("Login Failed!!Try again")
                 }
             })
+            navigate_to_account()
     }
 
     // async function login_submit_async(event) {
@@ -93,6 +104,7 @@ function Login() {
                     <button type="submit">Log In</button>
                 </div>
                 <p>{isLoginSuccess}</p>
+
             </label>
 
         </form>

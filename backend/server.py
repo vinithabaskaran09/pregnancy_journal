@@ -1,8 +1,10 @@
 # from flask import (Flask, render_template, request, flash, session,
 #                    redirect)
-from flask import Flask, jsonify, render_template, request, redirect
-from model import connect_to_db, db, Family
+from flask import Flask, jsonify, render_template, request, redirect, session
+from model import connect_to_db, db, Family, FamilyMember, Journal
 from flask_cors import CORS
+import json
+
 
 app = Flask(__name__,template_folder='frontend')
 CORS(app)
@@ -16,28 +18,34 @@ CORS(app)
 @app.route('/api/login', methods=['POST'])
 def login():
     
-    username = request.json["username"]
+    username = request.json.get("username")
     # username = request.get_json().get("name")
-    password = request.json["password"]
+    password = request.json.get("password")
     # login_dict = {username,password}
     # print(login_dict)
     ###Query from db###
     family = db.session.query(Family).filter(Family.name== username).first()
+    print(f"######{family.family_id}")
+    
+    
+    
     # families = db.session.query(Family).where(Family.name== username).first()
     # families = Family.query.where(Family.name==username).first()
     # print(families.name)
     # if family.password == password:
     #     print("success")
     #     return jsonify({"message":"Successfully Logged in"})
+    
     if family == None:
         # raise Exception()
-        return jsonify({"message":False})
+        return jsonify({"message":False,"family_id":family.family_id})
     elif family.password != password:
         # redirect('/login')
-        return jsonify({"message":False})
+        return jsonify({"message":False,"family_id":family.family_id})
     else:
         # print("success")
-        return jsonify({"message":True})
+        return jsonify({"message":True,"family_id":family.family_id})
+    
     
     # user_dict = {}
     # for family in families:
@@ -70,6 +78,7 @@ def username_check():
     else:
         return jsonify({"available":True})
     
+    
 @app.route('/api/email', methods=['POST'])
 def email_check():
     email = request.json["email"]
@@ -97,10 +106,46 @@ def signup():
         db.session.add(new_family)
         db.session.commit()
         return jsonify({"message":"Successfully created the account redirecting to login page"})
-        
-    # return jsonify({"username":username})
+
+@app.route('/api/account', methods=['POST'])
+def account_creating(): 
+    member_type = request.json["account_type"]
+    health_info = bool(request.json["health_info"])
+    username = request.json["username"]
+    
+    member_typecheckdb = db.session.query(Family).join(FamilyMember).filter((Family.name==username) & (FamilyMember.member_type==member_type)).first()
+    print(member_typecheckdb)
+    if member_typecheckdb != None:
+        print(member_typecheckdb)
+        return jsonify({"message":"Already added"})
+    else:
+        new_familymember = FamilyMember(member_type=member_type, health_info=health_info)
+        db.session.add(new_familymember)
+        db.session.commit()
+        return jsonify({"message":"Successfully Added"})
+
+@app.route('/api/features', methods=['POST'])
+def feature_developing():
+    print(f"hello")
+    
+    
+@app.route('/api/journal', methods=["POST"])
+def journal_creating():
+    print(f"Welcome to jouranl page")
+    family_id = request.json["family_id"]
+    print(f"{family_id}")
+    member_type = request.json["account_type"]
+    print(f"{member_type}")
+    username = request.json["username"]
+    print(f"{username}")
+    
+    journal_dbcheck = db.session.query(Journal).join(FamilyMember).filter((FamilyMember.member_type==member_type)&(FamilyMember.family_id==family_id)).first()
+    print(f"##########{journal_dbcheck.message}")
+    
+    return {username:username}
     
 
+    
 if __name__ == "__main__":
     connect_to_db(app)
     app.run('0.0.0.0', debug=True)
