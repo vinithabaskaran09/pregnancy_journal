@@ -21,9 +21,6 @@ def login():
     username = request.json.get("username")
     # username = request.get_json().get("name")
     password = request.json.get("password")
-    # login_dict = {username,password}
-    # print(login_dict)
-    ###Query from db###
     family = db.session.query(Family).filter(Family.name== username).first()
     print(f"######{family.family_id}")
     
@@ -130,6 +127,38 @@ def feature_developing():
     
     
 @app.route('/api/journal', methods=["POST"])
+def display_journal():
+    print(f"Welcome to jouranl page")
+    family_id = request.json["family_id"]
+    print(f"{family_id}")
+    member_type = request.json["account_type"]
+    print(f"{member_type}")
+    username = request.json["username"]
+    print(f"{username}")
+    date = request.json["date"]
+    print(f"{date}")
+
+    
+    
+    journal_dbcheck = db.session.query(Journal).join(FamilyMember).filter((FamilyMember.member_type==member_type)&(FamilyMember.family_id==family_id)).filter(Journal.date==date).first()
+    print(f"##########{journal_dbcheck}")
+    # journal_message = journal_dbcheck.message
+    # message = [message.message for message in journal_dbcheck]
+    # message_array = []
+    # for journal in journal_dbcheck:
+    #     message_array.append(journal.serialize())
+    
+    if journal_dbcheck == None:
+        return {"username":username,"journal_message":""}
+
+# def get_journal_messages(username):
+#     journal_entries = session.query(Journal).filter_by(username=username).all()
+#     messages = [entry.message for entry in journal_entries]
+#     return messages
+    else:
+        return {"username":username,"journal_message":journal_dbcheck.message}
+    
+@app.route('/api/journal_creation', methods=["POST"])
 def journal_creating():
     print(f"Welcome to jouranl page")
     family_id = request.json["family_id"]
@@ -138,14 +167,24 @@ def journal_creating():
     print(f"{member_type}")
     username = request.json["username"]
     print(f"{username}")
+    message = request.json["message"]
+    print(f"{message}")
+    date = request.json["date"]
+    print(f"{date}")
     
-    journal_dbcheck = db.session.query(Journal).join(FamilyMember).filter((FamilyMember.member_type==member_type)&(FamilyMember.family_id==family_id)).first()
-    print(f"##########{journal_dbcheck.message}")
-    
-    return {username:username}
-    
+    journal_dbcheck = db.session.query(Journal).join(FamilyMember).filter((FamilyMember.member_type==member_type)&(FamilyMember.family_id==family_id)).filter(Journal.date==date).first()
+    member_dbcheck = db.session.query(FamilyMember).filter((FamilyMember.family_id==family_id) & (FamilyMember.member_type==member_type)).first()
+    if journal_dbcheck == None:
+        new_journal = Journal(member_id=member_dbcheck.member_id,message=message,date=date)
+        db.session.add(new_journal)
+        db.session.commit()
+        return jsonify({"message":"Successfully Added"})
+    else:
+        journal_dbcheck.message = message
+        db.session.commit()
+        print(f"{journal_dbcheck.message}")
+        return jsonify({"message":"updated successfully"})
 
-    
 if __name__ == "__main__":
     connect_to_db(app)
     app.run('0.0.0.0', debug=True)

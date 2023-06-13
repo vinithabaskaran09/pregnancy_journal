@@ -53,6 +53,14 @@ class Journal(db.Model):
     def __repr__(self):
         return f"<Journal journal_id={self.journal_id} message={self.message} date={self.date}>"
     
+    def serialize(self):
+        return {
+            "journal_id": self.journal_id,
+            "member_id": self.member_id,
+            "message": self.message,
+            "date": self.date
+        }
+    
     
 class Picture(db.Model):
     """Picture Upload"""
