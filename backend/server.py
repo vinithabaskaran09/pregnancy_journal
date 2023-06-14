@@ -109,6 +109,8 @@ def account_creating():
     member_type = request.json["account_type"]
     health_info = bool(request.json["health_info"])
     username = request.json["username"]
+    family_id = request.json["family_id"]
+    
     
     member_typecheckdb = db.session.query(Family).join(FamilyMember).filter((Family.name==username) & (FamilyMember.member_type==member_type)).first()
     print(member_typecheckdb)
@@ -116,7 +118,7 @@ def account_creating():
         print(member_typecheckdb)
         return jsonify({"message":"Already added"})
     else:
-        new_familymember = FamilyMember(member_type=member_type, health_info=health_info)
+        new_familymember = FamilyMember(member_type=member_type, health_info=health_info, family_id=family_id)
         db.session.add(new_familymember)
         db.session.commit()
         return jsonify({"message":"Successfully Added"})

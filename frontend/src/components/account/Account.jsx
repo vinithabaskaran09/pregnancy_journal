@@ -35,6 +35,7 @@ function Account(props) {
                 account_type: account_type,
                 health_info: health_info,
                 username: props.sessionUsername,
+                family_id: props.sessionFamilyId,
             }),  
         })
             .then((response) => response.json())

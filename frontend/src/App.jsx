@@ -29,7 +29,7 @@ function App() {
         <Route exact path="/" element={<Homepage />}></Route>
         <Route exact path="/login" element={<Login sessionUsername={sessionUsername} setSessionUsername={setSessionUsername} sessionFamilyId={sessionFamilyId} setSessionFamilyId={setSessionFamilyId}/>}></Route>
         <Route exact path="/signup" element={<Signup />}></Route>
-        <Route exact path="/account" element={<Account sessionUsername={sessionUsername} sessionAccountType={sessionAccountType} setsessionAccountType={setsessionAccountType}/>}></Route>
+        <Route exact path="/account" element={<Account sessionUsername={sessionUsername} sessionAccountType={sessionAccountType} setsessionAccountType={setsessionAccountType} sessionFamilyId={sessionFamilyId} setSessionFamilyId={setSessionFamilyId}/>}></Route>
         <Route exact path="/features" element={<Features />}></Route>
         <Route exact path="/journal" element={<Journal sessionUsername={sessionUsername} sessionFamilyId={sessionFamilyId} setSessionFamilyId={setSessionFamilyId}
         sessionAccountType={sessionAccountType} setsessionAccountType={setsessionAccountType}/>}></Route>
