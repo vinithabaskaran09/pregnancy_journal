@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 
 function Journal(props) {
@@ -9,6 +10,9 @@ function Journal(props) {
         // date_function()
         display_journal(current_date)
     }
+    
+    // if current_d
+
 
     let current_date_notstring = new Date();
     let current_date = current_date_notstring.toDateString();
@@ -16,6 +20,7 @@ function Journal(props) {
     const [journal_message, setJournalMessage] = useState("");
     const [date, setDate] = useState(current_date);
     const [newMessage, setnewMessage] = useState("");
+    const [disableNextButton, setdisableNextButton] = useState(true);
 
 
     // function date_function(){
@@ -40,7 +45,7 @@ function Journal(props) {
         current_date_notstring = new Date(date);
         current_date_notstring.setDate(current_date_notstring.getDate() - 1);
         let previous_dateString = current_date_notstring.toDateString();
-        
+        setdisableNextButton(false)
         setDate(previous_dateString)
         display_journal(previous_dateString)
     }
@@ -48,8 +53,21 @@ function Journal(props) {
     function next_date(event) {
         event.preventDefault();
         current_date_notstring = new Date(date);
+        // example: June 15
+        console.log(current_date_notstring)
         current_date_notstring.setDate(current_date_notstring.getDate() + 1);
         let next_dateString = current_date_notstring.toDateString();
+        // example: June 16
+        console.log(next_dateString)
+        // if next_dateString > current_date_notstring:
+        let today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (current_date_notstring >= today){
+            setdisableNextButton(true)
+        }
+        if (current_date_notstring > today){
+            return 
+        }
         setDate(next_dateString)
         display_journal(next_dateString)
     }
@@ -119,7 +137,7 @@ function Journal(props) {
                 <button type="submit" onClick={previous_date}>Previous Page</button>
             </div>
             <div style={{ textAlign: 'right', position: 'absolute', top: 0, right: 0 }}>
-                <button type="submit" onClick={next_date}>Next Page</button>
+                <button type="submit" onClick={next_date} disabled={disableNextButton}>Next Page</button>
             </div>
             <form onSubmit={journal_creation}>
                 <label>Journal message box:</label>
