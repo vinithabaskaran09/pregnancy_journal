@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from 'react-router-dom';
+import Picture from "./Picture";
 
 function Journal(props) {
     useEffect(effect, [])
@@ -22,7 +23,13 @@ function Journal(props) {
     const [newMessage, setnewMessage] = useState("");
     const [disableNextButton, setdisableNextButton] = useState(true);
 
+    //For picture component//
+    const [pictureUpload,setPictureUpload] = useState(false);
 
+    function showpictureupload(event) {
+        setPictureUpload(true)
+        alert("check")
+    }
     // function date_function(){
     //     // console.log(current_date_notstring)
     //     const current_date_notstring = new Date();
@@ -144,6 +151,14 @@ function Journal(props) {
                 <textarea name="textValue" id="textcontent" row={1000} cols={50} style={{ minHeight: 50, height: 100 }} value={journal_message} onChange={onchange_message} />
                 <button type="submit" >Submit</button>
             </form>
+            <div>
+                {pictureUpload ? (
+                    <Picture />
+                ) : (
+                
+                <button type="submit" onClick={showpictureupload}>Upload</button>
+                )}
+            </div>
 
         </div>
 

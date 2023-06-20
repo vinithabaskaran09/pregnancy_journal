@@ -13,6 +13,7 @@ import Homepage from './components/homepage/Homepage';
 import Account from './components/account/Account';
 import Features from './components/features/Features';
 import Journal from './components/features/Journal';
+import Picture from './components/features/Picture';
 import { useState } from 'react';
 
 
@@ -33,7 +34,7 @@ function App() {
         <Route exact path="/features" element={<Features />}></Route>
         <Route exact path="/journal" element={<Journal sessionUsername={sessionUsername} sessionFamilyId={sessionFamilyId} setSessionFamilyId={setSessionFamilyId}
         sessionAccountType={sessionAccountType} setsessionAccountType={setsessionAccountType}/>}></Route>
-
+        <Route exact path="/picture" element={<Picture />}></Route>
       </Routes>
     </BrowserRouter>
   );
