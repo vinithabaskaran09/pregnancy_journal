@@ -12,7 +12,13 @@ function Journal(props) {
         display_journal(current_date)
     }
     
-    // if current_d
+    // const [sharedUrl, setSharedUrl] = useState({});
+    // const [sharedMessage, setSharedMessage] = useState("");
+
+    // function setSharedUrl(props){
+    //     setSharedUrl(props);
+    // };
+
 
 
     let current_date_notstring = new Date();
@@ -22,13 +28,19 @@ function Journal(props) {
     const [date, setDate] = useState(current_date);
     const [newMessage, setnewMessage] = useState("");
     const [disableNextButton, setdisableNextButton] = useState(true);
+    
+    const [picMessageAndUrl,setPicMessageAndUrl] = useState({});
+
+    function pictureMessageAndUrl(messageAndUrl){
+        setPicMessageAndUrl(messageAndUrl)
+        console.log(picMessageAndUrl)
+    };
 
     //For picture component//
     const [pictureUpload,setPictureUpload] = useState(false);
 
     function showpictureupload(event) {
         setPictureUpload(true)
-        alert("check")
     }
     // function date_function(){
     //     // console.log(current_date_notstring)
@@ -107,6 +119,7 @@ function Journal(props) {
 
     function journal_creation(event) {
         event.preventDefault();
+        console.log(picMessageAndUrl)
         console.log(event.target.textValue.value)
         fetch("/api/journal_creation", {
             method: "POST",
@@ -117,7 +130,8 @@ function Journal(props) {
                 family_id: props.sessionFamilyId,
                 account_type: props.sessionAccountType,
                 message: event.target.textValue.value,
-                date: date
+                date: date,
+                picMessageAndUrl: picMessageAndUrl
             }),
         })
             .then((response) => response.json())
@@ -153,7 +167,8 @@ function Journal(props) {
             </form>
             <div>
                 {pictureUpload ? (
-                    <Picture />
+                    <Picture 
+                    pictureMessageAndUrl={pictureMessageAndUrl}/>
                 ) : (
                 
                 <button type="submit" onClick={showpictureupload}>Upload</button>

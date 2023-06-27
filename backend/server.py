@@ -1,7 +1,7 @@
 # from flask import (Flask, render_template, request, flash, session,
 #                    redirect)
 from flask import Flask, jsonify, render_template, request, redirect, session
-from model import connect_to_db, db, Family, FamilyMember, Journal
+from model import connect_to_db, db, Family, FamilyMember, Journal, Picture
 from flask_cors import CORS
 import json
 
@@ -144,6 +144,7 @@ def display_journal():
     
     journal_dbcheck = db.session.query(Journal).join(FamilyMember).filter((FamilyMember.member_type==member_type)&(FamilyMember.family_id==family_id)).filter(Journal.date==date).first()
     print(f"##########{journal_dbcheck}")
+   
     # journal_message = journal_dbcheck.message
     # message = [message.message for message in journal_dbcheck]
     # message_array = []
@@ -164,27 +165,46 @@ def display_journal():
 def journal_creating():
     print(f"Welcome to jouranl page")
     family_id = request.json["family_id"]
-    print(f"{family_id}")
     member_type = request.json["account_type"]
-    print(f"{member_type}")
     username = request.json["username"]
     print(f"{username}")
     message = request.json["message"]
     print(f"{message}")
     date = request.json["date"]
     print(f"{date}")
-    
+    picMessageAndUrl = request.json["picMessageAndUrl"]
+    print(f"{picMessageAndUrl}")
+        
     journal_dbcheck = db.session.query(Journal).join(FamilyMember).filter((FamilyMember.member_type==member_type)&(FamilyMember.family_id==family_id)).filter(Journal.date==date).first()
+    print(f"{journal_dbcheck}")
     member_dbcheck = db.session.query(FamilyMember).filter((FamilyMember.family_id==family_id) & (FamilyMember.member_type==member_type)).first()
     if journal_dbcheck == None:
         new_journal = Journal(member_id=member_dbcheck.member_id,message=message,date=date)
         db.session.add(new_journal)
         db.session.commit()
+        
+        journal_id = new_journal.journal_id
+        picture_url = db.session.query(Picture).filter((Picture.journal_id==journal_id)).delete()
+        
+        for url,message in picMessageAndUrl.items():
+            new_pic_url = Picture(picture_url=url, picture_message=message,journal_id=journal_id)
+            db.session.add(new_pic_url)
+            db.session.commit()
+        
         return jsonify({"message":"Successfully Added"})
     else:
         journal_dbcheck.message = message
         db.session.commit()
         print(f"{journal_dbcheck.message}")
+        
+        journal_id = journal_dbcheck.journal_id
+        picture_url = db.session.query(Picture).filter((Picture.journal_id==journal_id)).delete()
+        
+        for url,message in picMessageAndUrl.items():
+            new_pic_url = Picture(picture_url=url, picture_message=message,journal_id=journal_id)
+            db.session.add(new_pic_url)
+            db.session.commit()
+        
         return jsonify({"message":"updated successfully"})
 
 if __name__ == "__main__":

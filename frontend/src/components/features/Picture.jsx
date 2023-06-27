@@ -30,6 +30,8 @@ function Picture(props) {
                 setShowImage(url);
                 // uploadedUrl = url;
                 // setstageparameters(previousstatevalue)
+                // Additionally, when a new image URL is added to the imageUrls state, the dict_update function is called with an empty value for the input and the corresponding URL using 
+                updateURLStates(url, "");
                 setImageUrls(imageUrls => [...imageUrls, url])
                 // setImageUrls(prevUrls => [...prevUrls, url]);
                 // setImageUrls((prevUrls) => { return [...prevUrls, url] });
@@ -48,16 +50,22 @@ function Picture(props) {
         widgetRef.current.open()
     }
 
-    function dic_update(event) {
+    function dict_update(event) {
         let message = event.target.value;
         // console.log(message);
         // console.log(event.target.getAttribute("data-url"));
         let image_url = event.target.getAttribute("data-url");
         // messageAndUrl.push({key: message, value:image_url});
+        updateURLStates(image_url, message);
+    };
+
+    function updateURLStates(image_url, message) {
         messageAndUrl[image_url] = message;
         setMessageAndUrl(messageAndUrl);
+        // props.setSharedUrl(messageAndUrl);
         console.log(messageAndUrl)
-    };
+        props.pictureMessageAndUrl(messageAndUrl)
+    }
     
 
     
@@ -78,7 +86,7 @@ function Picture(props) {
             <div style={{ marginLeft: "50px", marginTop: "50px" }} />
             {imageUrls.map((url, index) => (
                 <div key={index}>
-                    <input data-url={url} type="text" onChange={dic_update} />
+                    <input data-url={url} type="text" onChange={dict_update}  />
                     {/* <input type="text" onChange={(event) => {dic_update_v2(event, url)}} /> */}
 
                     <img key={index} src={url} style={{ width: "250px " }} />
