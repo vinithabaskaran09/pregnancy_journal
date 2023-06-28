@@ -132,18 +132,24 @@ def feature_developing():
 def display_journal():
     print(f"Welcome to jouranl page")
     family_id = request.json["family_id"]
-    print(f"{family_id}")
     member_type = request.json["account_type"]
-    print(f"{member_type}")
     username = request.json["username"]
-    print(f"{username}")
     date = request.json["date"]
-    print(f"{date}")
-
-    
-    
+ 
     journal_dbcheck = db.session.query(Journal).join(FamilyMember).filter((FamilyMember.member_type==member_type)&(FamilyMember.family_id==family_id)).filter(Journal.date==date).first()
+    journal_id = journal_dbcheck.journal_id
+    picture_url = db.session.query(Picture).filter((Picture.journal_id==journal_id)).all()
+    print(f"$$$${picture_url}$$$$")   
     print(f"##########{journal_dbcheck}")
+    
+    pic_message_url = {}
+    for value in picture_url:
+        # picture_url.append(value.picture_url)
+        # picture_message.append(value.picture_message)
+        pic_message_url[value.picture_url] = value.picture_message
+        print(f"!!!!!!!!!!!{pic_message_url}")
+    # for items in range(len(picture_url)):
+    #     pic_message_url[picture_url[items]] = picture_message[items]
    
     # journal_message = journal_dbcheck.message
     # message = [message.message for message in journal_dbcheck]
@@ -152,14 +158,14 @@ def display_journal():
     #     message_array.append(journal.serialize())
     
     if journal_dbcheck == None:
-        return {"username":username,"journal_message":""}
+        return {"username":username,"journal_message":"","pic_message_url":""}
 
 # def get_journal_messages(username):
 #     journal_entries = session.query(Journal).filter_by(username=username).all()
 #     messages = [entry.message for entry in journal_entries]
 #     return messages
     else:
-        return {"username":username,"journal_message":journal_dbcheck.message}
+        return {"username":username,"journal_message":journal_dbcheck.message,"pic_message_url":pic_message_url}
     
 @app.route('/api/journal_creation', methods=["POST"])
 def journal_creating():

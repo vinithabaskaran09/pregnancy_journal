@@ -25,6 +25,8 @@ function Journal(props) {
     let current_date = current_date_notstring.toDateString();
 
     const [journal_message, setJournalMessage] = useState("");
+    const [picture_url, setPictureUrl] = useState("");
+    const [picture_message, setPictureMessage] = useState("");
     const [date, setDate] = useState(current_date);
     const [newMessage, setnewMessage] = useState("");
     const [disableNextButton, setdisableNextButton] = useState(true);
@@ -108,7 +110,12 @@ function Journal(props) {
             .then((data) => {
                 console.log(data)
                 let journal_message = data.journal_message
-                console.log(journal_message)
+                // let picture_url = data.pic_message_url;
+                let [[picture_url, picture_message]]= Object.entries(data.pic_message_url);
+                // let picture_message = Object.entries(data.pic_message_url)[1];
+                console.log(picture_url)
+                console.log(picture_message)
+                // console.log(picture_message)
                 setJournalMessage(journal_message)
             })
     }
@@ -119,8 +126,6 @@ function Journal(props) {
 
     function journal_creation(event) {
         event.preventDefault();
-        console.log(picMessageAndUrl)
-        console.log(event.target.textValue.value)
         fetch("/api/journal_creation", {
             method: "POST",
             mode: "cors",
