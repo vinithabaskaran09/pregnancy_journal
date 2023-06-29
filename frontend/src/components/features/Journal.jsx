@@ -35,7 +35,7 @@ function Journal(props) {
 
     function pictureMessageAndUrl(messageAndUrl){
         setPicMessageAndUrl(messageAndUrl)
-        console.log(picMessageAndUrl)
+        // console.log(picMessageAndUrl)
     };
 
     //For picture component//
@@ -75,11 +75,11 @@ function Journal(props) {
         event.preventDefault();
         current_date_notstring = new Date(date);
         // example: June 15
-        console.log(current_date_notstring)
+        // console.log(current_date_notstring)
         current_date_notstring.setDate(current_date_notstring.getDate() + 1);
         let next_dateString = current_date_notstring.toDateString();
         // example: June 16
-        console.log(next_dateString)
+        // console.log(next_dateString)
         // if next_dateString > current_date_notstring:
         let today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -95,6 +95,7 @@ function Journal(props) {
 
     function display_journal(current_date) {
         // event.preventDefault();
+        
         fetch("/api/journal", {
             method: "POST",
             mode: "cors",
@@ -108,15 +109,26 @@ function Journal(props) {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                // console.log(data)
                 let journal_message = data.journal_message
                 // let picture_url = data.pic_message_url;
-                let [[picture_url, picture_message]]= Object.entries(data.pic_message_url);
-                // let picture_message = Object.entries(data.pic_message_url)[1];
-                console.log(picture_url)
-                console.log(picture_message)
+                // let [[picture_url, picture_message]]= Object.entries(data.pic_message_url);
+                // // let picture_message = Object.entries(data.pic_message_url)[1];
+                // console.log(picture_url)
                 // console.log(picture_message)
+                // console.log(picture_message)
+                let length = Object.keys(data.pic_message_url).length;
+                console.log(length)
+                if (length!=0){
+                    setPictureUpload(true)
+                }else{
+                    setPictureUpload(false)
+                };
+                // console.log(data.pic_message_url)
                 setJournalMessage(journal_message)
+                setPicMessageAndUrl(data.pic_message_url)
+
+                
             })
     }
 
@@ -141,7 +153,7 @@ function Journal(props) {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                // console.log(data);
 
             })
 
@@ -173,7 +185,8 @@ function Journal(props) {
             <div>
                 {pictureUpload ? (
                     <Picture 
-                    pictureMessageAndUrl={pictureMessageAndUrl}/>
+                    pictureMessageAndUrl={pictureMessageAndUrl}
+                    picMessageAndUrl={picMessageAndUrl}/>
                 ) : (
                 
                 <button type="submit" onClick={showpictureupload}>Upload</button>

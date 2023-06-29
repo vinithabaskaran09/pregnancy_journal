@@ -12,9 +12,10 @@ function Picture(props) {
 
     const [showImage, setShowImage] = useState("");
     const [imageUrls, setImageUrls] = useState([]);
-    const [messageAndUrl, setMessageAndUrl] = useState({});
+    const [messageAndUrl, setMessageAndUrl] = useState(props.picMessageAndUrl);
     //     key: url
     // value: message
+    console.log(props.picMessageAndUrl)
     useEffect(cloudinaryValue, [])
 
     function cloudinaryValue(props) {
@@ -25,7 +26,7 @@ function Picture(props) {
         }, function (error, result) {
             // console.log(result);
             const url = result.info.url;
-            console.log(url);
+            // console.log(url);
             if (url) {
                 setShowImage(url);
                 // uploadedUrl = url;
@@ -36,7 +37,7 @@ function Picture(props) {
                 // setImageUrls(prevUrls => [...prevUrls, url]);
                 // setImageUrls((prevUrls) => { return [...prevUrls, url] });
                 // setImageUrls(preurls);
-                console.log(showImage)
+                // console.log(showImage)
             };
 
         });
@@ -63,7 +64,7 @@ function Picture(props) {
         messageAndUrl[image_url] = message;
         setMessageAndUrl(messageAndUrl);
         // props.setSharedUrl(messageAndUrl);
-        console.log(messageAndUrl)
+        // console.log(messageAndUrl)
         props.pictureMessageAndUrl(messageAndUrl)
     }
     
@@ -84,12 +85,12 @@ function Picture(props) {
             {/* <button type="submit">Upload</button> */}
             <button onClick={displayImage}>Cloudinary</button>
             <div style={{ marginLeft: "50px", marginTop: "50px" }} />
-            {imageUrls.map((url, index) => (
-                <div key={index}>
-                    <input data-url={url} type="text" onChange={dict_update}  />
+            {Object.entries(messageAndUrl).map(([url, message]) => (
+                <div>
+                    <input data-url={url} type="text" onChange={dict_update} value={message} data-messgae={message}/>
                     {/* <input type="text" onChange={(event) => {dic_update_v2(event, url)}} /> */}
 
-                    <img key={index} src={url} style={{ width: "250px " }} />
+                    <img src={url} style={{ width: "250px " }} />
                 </div>
             ))}
         </div>
