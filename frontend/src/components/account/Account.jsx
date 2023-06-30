@@ -53,7 +53,7 @@ function Account(props) {
             <p>Hi {props.sessionUsername}</p>
             <label>
                 <p>Who is this</p>
-                <input type="radio" name="account_type" value="mom" onChange={accountTypeChange} checked={true}/> Mom
+                <input type="radio" name="account_type" value="mom" onChange={accountTypeChange} /> Mom
                 <input type="radio" name="account_type" value="dad" onChange={accountTypeChange}/> Dad
             </label>
             <div>

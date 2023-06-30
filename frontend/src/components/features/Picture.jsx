@@ -61,11 +61,15 @@ function Picture(props) {
     };
 
     function updateURLStates(image_url, message) {
-        messageAndUrl[image_url] = message;
-        setMessageAndUrl(messageAndUrl);
+        // messageAndUrl[image_url] = message;
+        let newDictionary = {
+            ...messageAndUrl 
+        }
+        newDictionary[image_url] = message;
+        setMessageAndUrl(newDictionary)
         // props.setSharedUrl(messageAndUrl);
         // console.log(messageAndUrl)
-        props.pictureMessageAndUrl(messageAndUrl)
+        props.pictureMessageAndUrl(newDictionary)
     }
     
 
@@ -85,7 +89,7 @@ function Picture(props) {
             {/* <button type="submit">Upload</button> */}
             <button onClick={displayImage}>Cloudinary</button>
             <div style={{ marginLeft: "50px", marginTop: "50px" }} />
-            {Object.entries(messageAndUrl).map(([url, message]) => (
+            {Object.entries(props.picMessageAndUrl).map(([url, message]) => (
                 <div>
                     <input data-url={url} type="text" onChange={dict_update} value={message} data-messgae={message}/>
                     {/* <input type="text" onChange={(event) => {dic_update_v2(event, url)}} /> */}
