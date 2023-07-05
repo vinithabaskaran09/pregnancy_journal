@@ -110,7 +110,7 @@ function HealthInfo(props) {
 
     function health_answer() {
         // event.preventDefault();
-        alert("check");
+        alert(date);
         fetch("/api/healthanswer", {
             method: "POST",
             mode: "cors",
@@ -119,7 +119,7 @@ function HealthInfo(props) {
                 questionAnswer: questionAnswer,
                 username: props.sessionUsername,
                 family_id: props.sessionFamilyId,
-                date: current_date,
+                date: date,
                 account_type: props.sessionAccountType,
             }),
         })
