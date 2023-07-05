@@ -166,11 +166,6 @@ function Journal(props) {
             <h1>hi</h1>
             <p>This is your journal message:</p>
             <p>{date}</p>
-            {/* <label>
-                <p>{date}</p>
-                <p>{previousDate}</p>
-                <p>{nextDate}</p>
-            </label> */}
             <div style={{ textAlign: 'left', position: 'absolute', top: 0, left: 0 }}>
                 <button type="submit" onClick={previous_date}>Previous Page</button>
             </div>
