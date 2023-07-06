@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Features(props) {
     
-
+    console.log(props.sessionHealthInfo)
     const navigateTo = useNavigate();
     
     function navigate_to_journalpage() {
@@ -21,7 +21,12 @@ function Features(props) {
             <h1>We have the following features</h1>
             <label>
                 <input type="radio" name="features" value="journal" onChange={navigate_to_journalpage} /> Journal
-                <input type="radio" name="features" value="health_info" onChange={navigate_to_healthinfopage}/> Health-Info
+                {props.sessionHealthInfo === "True" && (
+                    <label>
+                        <input type="radio" name="features" value="health_info" onChange={navigate_to_healthinfopage} /> 
+                        HealthInfo
+                    </label>
+                )}
                 <input type="radio" name="features" value="playlist"/> Playlist
             </label>
 

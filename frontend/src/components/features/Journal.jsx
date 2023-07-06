@@ -33,6 +33,20 @@ function Journal(props) {
     
     const [picMessageAndUrl,setPicMessageAndUrl] = useState({});
 
+
+
+    const navigateTo = useNavigate();
+
+    function navigate_to_login() {
+        "Redirect to login page"
+        navigateTo('/login')
+    }
+    
+    function navigate_to_features() {
+        "Redirect to features page"
+        navigateTo('/features')
+    }
+
     function pictureMessageAndUrl(messageAndUrl){
         setPicMessageAndUrl(messageAndUrl)
         // console.log(picMessageAndUrl)
@@ -44,23 +58,7 @@ function Journal(props) {
     function showpictureupload(event) {
         setPictureUpload(true)
     }
-    // function date_function(){
-    //     // console.log(current_date_notstring)
-    //     const current_date_notstring = new Date();
-    //     const current_date=current_date_notstring.toDateString();
-    //     setDate(current_date)
-
-    //     let previous_date_not_string = new Date();
-    //     previous_date_not_string.setDate(current_date_notstring.getDate() + 1);
-    //     let previous_date = previous_date_not_string.toDateString();
-    //     setPreviousDate(previous_date)
-
-
-    //     let next_date_not_string = new Date();
-    //     next_date_not_string.setDate(current_date_notstring.getDate() - 1);
-    //     let next_date = next_date_not_string.toDateString();
-    //     setNextDate(next_date)
-    // }
+    
     function previous_date(event) {
         event.preventDefault();
         current_date_notstring = new Date(date);
@@ -176,6 +174,9 @@ function Journal(props) {
                 <label>Journal message box:</label>
                 <textarea name="textValue" id="textcontent" row={1000} cols={50} style={{ minHeight: 50, height: 100 }} value={journal_message} onChange={onchange_message} />
                 <button type="submit" >Submit</button>
+                <button type="submit" onClick={navigate_to_features}> Features Page </button>
+                <button type="submit" onClick={navigate_to_login}>Login Page</button>
+
             </form>
             <div>
                 {pictureUpload ? (

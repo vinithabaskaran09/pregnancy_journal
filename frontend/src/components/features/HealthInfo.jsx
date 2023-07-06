@@ -21,6 +21,14 @@ function HealthInfo(props) {
     const [date, setDate] = useState(current_date);
     const [disableNextButton, setdisableNextButton] = useState(true);
 
+    const navigateTo = useNavigate();
+
+
+    function navigate_to_features() {
+        "Redirect to features page"
+        navigateTo('/features')
+    }
+
 
     function effect() {
         // date_function()
@@ -159,6 +167,7 @@ function HealthInfo(props) {
                 </div>
             ))}
             <button type="submit" onClick={handleSubmit}>Submit</button>
+            <button type="submit" onClick={navigate_to_features}> Features Page </button>
 
         </div>
 
