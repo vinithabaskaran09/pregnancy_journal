@@ -27,7 +27,6 @@ function Features(props) {
                         HealthInfo
                     </label>
                 )}
-                <input type="radio" name="features" value="playlist"/> Playlist
             </label>
 
         </form>
