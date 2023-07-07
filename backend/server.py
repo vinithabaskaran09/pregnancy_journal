@@ -1,7 +1,7 @@
 # from flask import (Flask, render_template, request, flash, session,
 #                    redirect)
 from flask import Flask, jsonify, render_template, request, redirect, session
-from model import connect_to_db, db, Family, FamilyMember, Journal, Picture
+from model import connect_to_db, db, Family, FamilyMember, Journal, Picture, HealthQuestion, HealthAnswer
 from flask_cors import CORS
 import json
 
@@ -22,26 +22,16 @@ def login():
     # username = request.get_json().get("name")
     password = request.json.get("password")
     family = db.session.query(Family).filter(Family.name== username).first()
-    print(f"######{family.family_id}")
-    
-    
-    
-    # families = db.session.query(Family).where(Family.name== username).first()
-    # families = Family.query.where(Family.name==username).first()
-    # print(families.name)
-    # if family.password == password:
-    #     print("success")
-    #     return jsonify({"message":"Successfully Logged in"})
     
     if family == None:
         # raise Exception()
-        return jsonify({"message":False,"family_id":family.family_id})
-    elif family.password != password:
+        return jsonify({"message":False,"family_id": None})
+    elif family.password == password:
         # redirect('/login')
-        return jsonify({"message":False,"family_id":family.family_id})
-    else:
-        # print("success")
         return jsonify({"message":True,"family_id":family.family_id})
+    else:
+        print("Failed")
+        return jsonify({"message":False,"family_id":None})
     
     
     # user_dict = {}
@@ -93,7 +83,6 @@ def signup():
     email = request.json["email"]
     
     userfromdb = db.session.query(Family).filter(Family.name==username).first()
-    print(userfromdb)
     if userfromdb != None:
         # raise Exception()
         return jsonify({"message":"username is already taken"})
@@ -113,9 +102,7 @@ def account_creating():
     
     
     member_typecheckdb = db.session.query(Family).join(FamilyMember).filter((Family.name==username) & (FamilyMember.member_type==member_type)).first()
-    print(member_typecheckdb)
     if member_typecheckdb != None:
-        print(member_typecheckdb)
         return jsonify({"message":"Already added"})
     else:
         new_familymember = FamilyMember(member_type=member_type, health_info=health_info, family_id=family_id)
@@ -142,16 +129,11 @@ def display_journal():
 
     journal_id = journal_dbcheck.journal_id
     picture_url = db.session.query(Picture).filter((Picture.journal_id==journal_id)).all()
-    print(f"$$$${picture_url}$$$$")   
-    print(f"##########{journal_dbcheck}")
-    
-    
-    
+
     for value in picture_url:
         # picture_url.append(value.picture_url)
         # picture_message.append(value.picture_message)
         pic_message_url[value.picture_url] = value.picture_message
-        print(f"!!!!!!!!!!!{pic_message_url}")
         
     return {"username":username,"journal_message":journal_dbcheck.message,"pic_message_url":pic_message_url}
 
@@ -176,16 +158,12 @@ def journal_creating():
     family_id = request.json["family_id"]
     member_type = request.json["account_type"]
     username = request.json["username"]
-    print(f"{username}")
     message = request.json["message"]
-    print(f"{message}")
     date = request.json["date"]
-    print(f"{date}")
     picMessageAndUrl = request.json["picMessageAndUrl"]
-    print(f"{picMessageAndUrl}")
+ 
         
     journal_dbcheck = db.session.query(Journal).join(FamilyMember).filter((FamilyMember.member_type==member_type)&(FamilyMember.family_id==family_id)).filter(Journal.date==date).first()
-    print(f"{journal_dbcheck}")
     member_dbcheck = db.session.query(FamilyMember).filter((FamilyMember.family_id==family_id) & (FamilyMember.member_type==member_type)).first()
     if journal_dbcheck == None:
         new_journal = Journal(member_id=member_dbcheck.member_id,message=message,date=date)
@@ -204,7 +182,6 @@ def journal_creating():
     else:
         journal_dbcheck.message = message
         db.session.commit()
-        print(f"{journal_dbcheck.message}")
         
         journal_id = journal_dbcheck.journal_id
         picture_url = db.session.query(Picture).filter((Picture.journal_id==journal_id)).delete()
@@ -215,6 +192,59 @@ def journal_creating():
             db.session.commit()
         
         return jsonify({"message":"updated successfully"})
+    
+@app.route('/api/healthinfo', methods=["POST"])
+def healthquestion():
+    family_id = request.json["family_id"]
+    date = request.json["date"]
+    member_type = request.json["account_type"]
+    questionanswer = request.json["questionAnswer"]
+    health_question = db.session.query(HealthQuestion).all()
+    questions = {}
+    for value in health_question:
+        questions[value.question_id] = value.healthquestions
+    
+    answer_dict = {}
+    answer_dbcheck = db.session.query(HealthAnswer).join(FamilyMember).filter((FamilyMember.family_id==family_id) & (FamilyMember.member_type==member_type)).filter(HealthAnswer.date==date).all()
+    if answer_dbcheck == None:
+        return {"answer":{}, "questions":questions}
+    for value in answer_dbcheck:
+       answer_dict[value.question_id] = value.health_answer
+        
+    return {"questions":questions,"answer":answer_dict}
+
+
+@app.route('/api/healthanswer', methods=["POST"])
+def healthanswer():
+    # member_type = request.json["account_type"]
+    family_id = request.json["family_id"]
+    member_type = request.json["account_type"]
+    date = request.json["date"]
+    questionanswer = request.json["questionAnswer"]
+    answer_dbcheck = db.session.query(HealthAnswer).join(FamilyMember).filter((FamilyMember.family_id==family_id) & (FamilyMember.member_type==member_type)).filter(HealthAnswer.date==date).all()
+    print(answer_dbcheck)
+    member_dbcheck = db.session.query(FamilyMember).filter((FamilyMember.family_id==family_id) & (FamilyMember.member_type==member_type)).first()
+    
+    if answer_dbcheck == None:
+        
+        for question_id,answer in questionanswer.items():
+            new_answer = HealthAnswer(member_id=member_dbcheck.member_id,date=date,question_id=question_id, health_answer=answer)
+            db.session.add(new_answer)
+            db.session.commit()
+        
+        answer_id = new_answer.answer_id      
+        return jsonify({"message":"Successfully Added"})
+    else:
+        
+        new_answer = db.session.query(HealthAnswer).filter((HealthAnswer.member_id==member_dbcheck.member_id)).filter((HealthAnswer.date==date)).delete()
+        for question_id,answer in questionanswer.items():
+            new_answer = HealthAnswer(member_id=member_dbcheck.member_id,date=date,question_id=question_id, health_answer=answer)
+            db.session.add(new_answer)
+            db.session.commit()
+        
+        return jsonify({"message":"updated successfully"})
+    
+
 
 if __name__ == "__main__":
     connect_to_db(app)

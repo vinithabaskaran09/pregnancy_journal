@@ -40,11 +40,12 @@ function Account(props) {
         })
             .then((response) => response.json())
             .then((data) => {
+                
                 console.log("Redirecting to features page")
                 props.setsessionAccountType(account_type)
+                props.setSessionHealthInfo(health_info)
+                navigate_to_features()
             })
-            navigate_to_features()
-
     }
 
     return(

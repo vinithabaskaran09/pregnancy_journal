@@ -34,18 +34,20 @@ function Login(props) {
             .then((response) => response.json())
             .then((data) => {
                 let message = data.message;
+                // alert(message)
                 let family_id = data.family_id
                 if (message === true) {
                     // To do login succeed
                     setisLoginSuccess("Login successfully")
                     props.setSessionUsername(username)
                     props.setSessionFamilyId(family_id)
+                    navigate_to_account()
                 } else {
                     // login failed
                     setisLoginSuccess("Login Failed!!Try again")
                 }
             })
-            navigate_to_account()
+            
     }
 
     // async function login_submit_async(event) {
