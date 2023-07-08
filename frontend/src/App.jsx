@@ -17,7 +17,7 @@ import Picture from './components/features/Picture';
 import HealthInfo from './components/features/HealthInfo';
 import { useState } from 'react';
 
-
+import './scss/styles.css'
 
 function App() {
   const [sessionUsername, setSessionUsername] = useState("");

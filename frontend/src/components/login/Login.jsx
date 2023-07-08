@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
+import "../../scss/login.css"
+
 function Login(props) {
     // """Defining state for username and password to store the values"""
     const [username, setUsername] = useState("");
@@ -99,11 +101,11 @@ function Login(props) {
             </label>
             <label>
                 <p>Password</p>
-                <input type="text" id="password" value={password} onChange={onPasswordChange} />
+                <input type="text" className="inputText" id="password" value={password} onChange={onPasswordChange} />
             </label>
             <label>
                 <div>
-                    <button type="submit">Log In</button>
+                    <button type="submit" class="btn btn-primary">Log In</button>
                 </div>
                 <p>{isLoginSuccess}</p>
 
