@@ -82,19 +82,22 @@ function Picture(props) {
 
     return (
         <div>
-            <p>This is where you will upload pictures</p>
+            {/* <p>This is where you will upload pictures</p> */}
             {/* <input type="file" name="file"/> */}
             {/* <input type="text"/> */}
             {/* <button onClick={onButtonClick}></button> */}
             {/* <button type="submit">Upload</button> */}
-            <button onClick={displayImage}>Cloudinary</button>
+            <button onClick={displayImage}>Upload</button>
             <div style={{ marginLeft: "50px", marginTop: "50px" }} />
             {Object.entries(props.picMessageAndUrl).map(([url, message]) => (
                 <div>
-                    <input data-url={url} type="text" onChange={dict_update} value={message} data-messgae={message}/>
                     {/* <input type="text" onChange={(event) => {dic_update_v2(event, url)}} /> */}
-
-                    <img src={url} style={{ width: "250px " }} />
+                    <br/>
+                    <img src={url} style={{ width: "250px", border: "solid", marginBottom: "10px" }} />
+                    <br/>
+                    <br/>
+                    <input data-url={url} type="text" onChange={dict_update} value={message} data-messgae={message} className="font"/>
+                    <br/>
                 </div>
             ))}
         </div>

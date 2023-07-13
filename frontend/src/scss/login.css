@@ -1,5 +1,39 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
+.fontStyle {
+  font-family:'Times New Roman', Times, serif;
+  font-weight: lighter;
+  color: black;
+}
+
 .inputText {
-    width: 100px;
+    width: 300px;
+}
+
+.alpha { color: purple; }
+.beta {
+  color: yellow-300;
+  background-color: indigo-900;
+}
+
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-box {
+  height: fit-content;
+  width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.alertColour{
+  color: red;
 }

@@ -40,12 +40,14 @@ function Login(props) {
                 let family_id = data.family_id
                 if (message === true) {
                     // To do login succeed
+                    console.log("login success")
                     setisLoginSuccess("Login successfully")
                     props.setSessionUsername(username)
                     props.setSessionFamilyId(family_id)
                     navigate_to_account()
                 } else {
                     // login failed
+                    console.log("login fail")
                     setisLoginSuccess("Login Failed!!Try again")
                 }
             })
@@ -92,23 +94,23 @@ function Login(props) {
     }
 
     return (
-        <form onSubmit={login_submit}>
+        <form onSubmit={login_submit} className="form-container login-box">
             
-            <h1>Welcome to My Pregancy Journal</h1>
-            <label>
-                <p>Username</p>
-                <input type="text" id="username" value={username} onChange={onUsernameChange} />
-            </label>
-            <label>
-                <p>Password</p>
-                <input type="text" className="inputText" id="password" value={password} onChange={onPasswordChange} />
-            </label>
+            <h3 className="fontStyle">Log Into Journal</h3><br/>
+            <div class="form-floating mb-3 inputText">
+                <input type="text" class="form-control" id="username" value={username} onChange={onUsernameChange} />
+                <label for="username">Username</label>
+            </div>
+            <div class="form-floating inputText">
+                <input type="password" class="form-control" id="password" value={password} onChange={onPasswordChange}/> 
+                <label for="password">Password</label>
+            </div>
+            <br/>
             <label>
                 <div>
                     <button type="submit" class="btn btn-primary">Log In</button>
                 </div>
-                <p>{isLoginSuccess}</p>
-
+                <p class="alertColour">{isLoginSuccess}</p>
             </label>
 
         </form>

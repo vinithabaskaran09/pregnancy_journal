@@ -1,0 +1,29 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.inputText {
+    width: 125px;
+}
+
+/* .customButton1 {
+    background-color: purple !important;
+} */
+
+.loginButton {
+    color: white;
+    background-color: blue;
+}
+
+.signUp{
+    background-color: green;
+}
+
+.wholePage{
+    background-color:  mistyrose;
+    width: max-content;
+}
+
+
+.font {
+    font-family: sans-serif;
+    font-size: xx-large;
+}

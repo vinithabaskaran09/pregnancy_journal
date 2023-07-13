@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
+import "../../scss/account.css"
 
 function Account(props) {
 
@@ -49,17 +50,19 @@ function Account(props) {
     }
 
     return(
-        <form onSubmit={creatingaccount}>
-            <h1>Creating individual account</h1>
-            <p>Hi {props.sessionUsername}</p>
+        <form onSubmit={creatingaccount} className="login-box">
+            <h1 className="fontStyle">Creating individual account</h1>
+            <p>Hi, {props.sessionUsername}</p>
             <label>
-                <p>Who is this</p>
-                <input type="radio" name="account_type" value="mom" onChange={accountTypeChange} /> Mom
+                <p class="health">Is This My,</p>
+                <input type="radio" name="account_type" value="mom" onChange={accountTypeChange}/> Mom
                 <input type="radio" name="account_type" value="dad" onChange={accountTypeChange}/> Dad
             </label>
+            
             <div>
+            <br/>
             <label>
-                <p>Do You Need Health-Info In Your Account</p>
+                <p className="health">Do You Need Health-Info In Your Account</p>
                 <input type="radio" name="health_info" value="True" onChange={healthInfoChange}/> Yes
                 <input type="radio" name="health_info" value="False" onChange={healthInfoChange}/> No
             </label>

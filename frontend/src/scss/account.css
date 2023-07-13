@@ -1,0 +1,23 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+
+.fontStyle {
+    font-family:'Times New Roman', Times, serif;
+    font-weight: lighter;
+    color: black;
+  }
+
+.health{
+    color: royalblue;
+}
+
+
+
+.login-box {
+    height: fit-content;
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

@@ -1,0 +1,44 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.journal-entry {
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+.journal-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: x-large;
+    resize: horizontal;
+    min-height: 100px;
+    height: 300px;
+    color: black;
+    border: revert;
+    width: min-content;
+    font-family: sans-serif;
+}
+
+/* 
+.journal-navigationButton {
+    margin: 10px;
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: grey;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  } */
+  
+.buttonColor{
+    background: steelblue;
+}
+
+.journal-navigationButton{
+    display: inline-block;
+}

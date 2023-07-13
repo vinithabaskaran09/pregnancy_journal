@@ -48,7 +48,6 @@ function HealthInfo(props) {
         let previous_dateString = current_date_notstring.toDateString();
         setdisableNextButton(false)
         setDate(previous_dateString)
-        alert(previous_dateString)
         health_info(previous_dateString)
     }
 
@@ -65,7 +64,6 @@ function HealthInfo(props) {
         if (current_date_notstring > today) {
             return
         }
-        alert(next_dateString)
         setDate(next_dateString)
         health_info(next_dateString)
     }
@@ -95,7 +93,6 @@ function HealthInfo(props) {
 
     function health_info(current_date) {
         // event.preventDefault();
-        alert("check");
         fetch("/api/healthinfo", {
             method: "POST",
             mode: "cors",
@@ -118,7 +115,6 @@ function HealthInfo(props) {
 
     function health_answer() {
         // event.preventDefault();
-        alert(date);
         fetch("/api/healthanswer", {
             method: "POST",
             mode: "cors",

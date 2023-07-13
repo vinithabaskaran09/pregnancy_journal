@@ -1,0 +1,31 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+
+.inputText {
+    width: 125px;
+}
+
+.loginButton {
+    color: white;
+    background-color: blue;
+}
+
+.signUp{
+    background-color: green;
+}
+ 
+
+.button {
+    margin-right:16px
+
+}
+
+.font {
+    font-family: 'Times New Roman', Times, serif;
+}
+  
+  
+  
+  
+  
+  
