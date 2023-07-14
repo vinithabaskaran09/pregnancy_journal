@@ -23,6 +23,11 @@ function HealthInfo(props) {
 
     const navigateTo = useNavigate();
 
+    function navigate_to_login() {
+        "Redirect to login page"
+        navigateTo('/login')
+    }
+
 
     function navigate_to_features() {
         "Redirect to features page"
@@ -137,34 +142,47 @@ function HealthInfo(props) {
 
     return (
         <div>
-            <h1>hi</h1>
-            <p>This is health Info page:</p>
-            <h1>{date}</h1>
-            <div style={{ textAlign: 'left', position: 'absolute', top: 0, left: 0 }}>
-                <button type="submit" onClick={previous_date}>Previous Page</button>
+            <ul class="nav nav-fill">
+                <li class="nav-item">
+                    <button type="submit" onClick={navigate_to_features} class="nav-link active" aria-current="page" href="#"> Menu</button>
+                </li>
+                <li class="nav-item">
+                    <button type="submit" onClick={navigate_to_login} class="nav-link active" aria-current="page" href="#"> LogIn</button>
+
+                </li>
+            </ul>
+            <p className="fontFormat">Welcome To Health Info Page:</p>
+            <div className="journal-navigationButton">
+                <div style={{ float: "left" }} >
+                    <button type="submit" className="buttonColor" onClick={previous_date}>&#8592;</button>
+                </div>
+                <div style={{ display: "inline-block", margin: "0 10px" }}></div>
+                <p style={{ float: "left",marginLeft: '10px', marginRight: '10px',textAlign: 'center' }} >{date}</p>
+                <div style={{ float: "left" }} >
+                    <button type="submit" className="buttonColor" onClick={next_date} disabled={disableNextButton}>&#8594;</button>
+                </div>
             </div>
-            <div style={{ textAlign: 'right', position: 'absolute', top: 0, right: 0 }}>
-                <button type="submit" onClick={next_date} disabled={disableNextButton}>Next Page</button>
-            </div>
-            {/* <textarea name="textValue" id="textcontent" row={10} cols={10} style={{ minHeight: 10, height: 10 }} /> How is your mood today? */}
+            <br/>
+            <br/>
             {Object.entries(questions).map(([question_id, question]) => (
                 <div id={question_id}>
-                    <h2>{question}</h2>
+                    <h3 style={{fontStyle:"oblique"}}>{question}</h3>
                     <textarea
                         name="textValue"
                         id={`textarea-${question_id}`}
+                        className="journal-textarea"
                         rows={10}
                         cols={10}
-                        style={{ minHeight: 10, height: 10 }}
+                        style={{ minHeight: 20, height: 40, textAlign:"left"}}
                         onChange={questionAnswers}
                         data-question_id={question_id}
                         value={questionAnswer[question_id] || ""}
+                        placeholder={questionAnswer[question_id] || ""}
                     />
                 </div>
             ))}
-            <button type="submit" onClick={handleSubmit}>Submit</button>
-            <button type="submit" onClick={navigate_to_features}> Features Page </button>
-
+            <br/>
+            <button type="submit" onClick={handleSubmit} className="buttonBorder">Submit</button>
         </div>
 
     )

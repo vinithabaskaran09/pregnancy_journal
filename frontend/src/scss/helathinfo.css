@@ -1,1 +1,32 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.journal-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: medium;
+    resize: horizontal;
+    min-height: 100px;
+    height: 300px;
+    color: black;
+    border: black;
+    width: min-content;
+    font-family: sans-serif;
+}
+
+.questionFont {
+    font-family:sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+textarea {
+    text-align: right;
+}
+
+.fontFormat {
+    font-family: sans-serif;
+}
+
+.buttonBorder{
+    border: ridge;
+}

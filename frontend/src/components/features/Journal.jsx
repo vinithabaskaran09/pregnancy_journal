@@ -180,7 +180,7 @@ function Journal(props) {
                     {/* <button type="button" onClick={previous_date}>&#8592;</button> */}
                 </div>
                 <div style={{ display: "inline-block", margin: "0 10px" }}></div>
-                <p style={{ float: "left" }} >{date}</p>
+                <p style={{ float: "left" ,marginLeft: '10px', marginRight: '10px',textAlign: 'center'}} >{date}</p>
                 <div style={{ float: "left" }} >
                     <button type="submit" className="buttonColor" onClick={next_date} disabled={disableNextButton}>&#8594;</button>
                 </div>
