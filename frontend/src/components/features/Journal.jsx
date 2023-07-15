@@ -32,7 +32,7 @@ function Journal(props) {
     const [picture_message, setPictureMessage] = useState("");
     const [date, setDate] = useState(current_date);
     const [newMessage, setnewMessage] = useState("");
-    const [disableNextButton, setdisableNextButton] = useState(true);
+    const [disableNextButton, setdisableNextButton] = useState(false);
 
     const [picMessageAndUrl, setPicMessageAndUrl] = useState({});
 
@@ -186,11 +186,13 @@ function Journal(props) {
                 </div>
             </div>
             <br />
+            <br/>
             <form onSubmit={journal_creation}>
                 <div>Journal message box:</div>
+                <br/>
                 <textarea name="textValue" id="textcontent" className="journal-textarea" row={1000} cols={50} value={journal_message} placeholder={journal_message} onChange={onchange_message} />
                 <br />
-                <button type="submit" >Submit</button>
+                <button type="submit" className="border border-5">Submit</button>
                 {/* 
                 <button type="submit" onClick={navigate_to_features}> Features Page </button>
                 <button type="submit" onClick={navigate_to_login}>Login Page</button> */}
@@ -202,11 +204,11 @@ function Journal(props) {
                         pictureMessageAndUrl={pictureMessageAndUrl}
                         picMessageAndUrl={picMessageAndUrl} />
                 ) : (
-                    <button type="submit" onClick={showpictureupload}>Upload</button>
+                    <button type="submit" onClick={showpictureupload} className="border border-5">Upload</button>
                 )}
             </div>
-            <div style={{ textAlign: 'right', position: 'absolute', top: 0, right: 0 }}>
-                <button type="submit" onClick={navigate_to_login}>Logout</button>
+            <div style={{ textAlign: 'right', position: 'absolute', top: 0, right: 0, }}>
+                <button type="submit" onClick={navigate_to_login} className="border border-5">Logout</button>
 
             </div>
         </div>

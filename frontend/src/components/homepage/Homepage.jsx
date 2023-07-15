@@ -24,11 +24,11 @@ function Homepage() {
                     <h1 className="font">Welcome to Pregancy Journal App</h1>
                     <br />
                     <div>
-                        <button type="button" class="loginButton inputText" onClick={navigate_to_login}>LogIn</button>
+                        <button type="button" className="btn btn-primary inputText" onClick={navigate_to_login}>LogIn</button>
                     </div>
                     <br />
                     <div>
-                        <button type="button" className="loginButton inputText" onClick={navigate_to_signup}>SignUp</button>
+                        <button type="button" className="btn btn-primary inputText" onClick={navigate_to_signup}>SignUp</button>
                     </div>
                 </form>
             </div>

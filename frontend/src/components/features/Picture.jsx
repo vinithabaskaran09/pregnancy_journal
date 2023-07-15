@@ -10,12 +10,12 @@ function Picture(props) {
     const widgetRef = useRef();
     //    let uploadedUrl;
 
-    const [showImage, setShowImage] = useState("");
-    const [imageUrls, setImageUrls] = useState([]);
+    // const [showImage, setShowImage] = useState("");
+    // const [imageUrls, setImageUrls] = useState([]);
     const [messageAndUrl, setMessageAndUrl] = useState(props.picMessageAndUrl);
     //     key: url
     // value: message
-    console.log(props.picMessageAndUrl)
+    // console.log(props.picMessageAndUrl)
     useEffect(cloudinaryValue, [])
 
     function cloudinaryValue(props) {
@@ -28,12 +28,12 @@ function Picture(props) {
             const url = result.info.url;
             // console.log(url);
             if (url) {
-                setShowImage(url);
+                // setShowImage(url);
                 // uploadedUrl = url;
                 // setstageparameters(previousstatevalue)
                 // Additionally, when a new image URL is added to the imageUrls state, the dict_update function is called with an empty value for the input and the corresponding URL using 
                 updateURLStates(url, "");
-                setImageUrls(imageUrls => [...imageUrls, url])
+                // setImageUrls(imageUrls => [...imageUrls, url])
                 // setImageUrls(prevUrls => [...prevUrls, url]);
                 // setImageUrls((prevUrls) => { return [...prevUrls, url] });
                 // setImageUrls(preurls);
@@ -65,10 +65,15 @@ function Picture(props) {
         let newDictionary = {
             ...messageAndUrl 
         }
+        console.log("newDictionary before add");
+        console.log(newDictionary);
+        console.log("new Url:"+ image_url);
         newDictionary[image_url] = message;
-        setMessageAndUrl(newDictionary)
+        console.log("newDictionary after add");
+        console.log(newDictionary);
         // props.setSharedUrl(messageAndUrl);
         // console.log(messageAndUrl)
+        setMessageAndUrl(newDictionary)
         props.pictureMessageAndUrl(newDictionary)
     }
     
@@ -87,7 +92,7 @@ function Picture(props) {
             {/* <input type="text"/> */}
             {/* <button onClick={onButtonClick}></button> */}
             {/* <button type="submit">Upload</button> */}
-            <button onClick={displayImage}>Upload</button>
+            <button className="border border-5" onClick={displayImage}>Upload</button>
             <div style={{ marginLeft: "50px", marginTop: "50px" }} />
             {Object.entries(props.picMessageAndUrl).map(([url, message]) => (
                 <div>
