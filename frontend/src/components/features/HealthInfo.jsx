@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 
+import "../../scss/healthinfo.css"
 
 function HealthInfo(props) {
 
@@ -147,11 +148,13 @@ function HealthInfo(props) {
                     <button type="submit" onClick={navigate_to_features} class="nav-link active" aria-current="page" href="#"> Menu</button>
                 </li>
                 <li class="nav-item">
-                    <button type="submit" onClick={navigate_to_login} class="nav-link active" aria-current="page" href="#"> LogIn</button>
+                    <button type="submit" onClick={navigate_to_login} class="nav-link active" aria-current="page" href="#"> Logout</button>
 
                 </li>
             </ul>
-            <p className="fontFormat">Welcome To Health Info Page:</p>
+            <h2 className="fontFormat">Welcome To Health Info Page:</h2>
+            <br/>
+            <br/>
             <div className="journal-navigationButton">
                 <div style={{ float: "left" }} >
                     <button type="submit" className="buttonColor" onClick={previous_date}>&#8592;</button>
@@ -166,11 +169,11 @@ function HealthInfo(props) {
             <br/>
             {Object.entries(questions).map(([question_id, question]) => (
                 <div id={question_id}>
-                    <h3 style={{fontStyle:"oblique"}}>{question}</h3>
+                    <h4 style={{fontStyle:"oblique"}}>{question}</h4>
                     <textarea
                         name="textValue"
                         id={`textarea-${question_id}`}
-                        className="journal-textarea"
+                        className="healthinfo-textarea"
                         rows={10}
                         cols={10}
                         style={{ minHeight: 20, height: 40, textAlign:"left"}}

@@ -54,8 +54,8 @@ function Account(props) {
             <h1 className="fontStyle">Creating individual account</h1>
             <p>Hi, {props.sessionUsername}</p>
             <label>
-                <p class="health">Is This My,</p>
-                <input type="radio" name="account_type" value="mom" onChange={accountTypeChange}/> Mom
+                <p class="health">Is this my,</p>
+                <input type="radio" name="account_type" value="mom" onChange={accountTypeChange}/> <span style={{paddingRight: "10px"}}>Mom</span>
                 <input type="radio" name="account_type" value="dad" onChange={accountTypeChange}/> Dad
             </label>
             
@@ -63,10 +63,11 @@ function Account(props) {
             <br/>
             <label>
                 <p className="health">Do You Need Health-Info In Your Account</p>
-                <input type="radio" name="health_info" value="True" onChange={healthInfoChange}/> Yes
+                <input type="radio" name="health_info" value="True" onChange={healthInfoChange}/> <span style={{paddingRight: "10px"}}>Yes</span>
                 <input type="radio" name="health_info" value="False" onChange={healthInfoChange}/> No
             </label>
             </div>
+            <br/>
             <label>
                 <button type="submit"> submit</button>
             </label>

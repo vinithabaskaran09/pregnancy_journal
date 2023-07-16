@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
+import "../../scss/signup.css"
+
 function Signup() {
     const [LogInMessage, setLogInMessage] = useState("");
     const [usernameCheck, setUsernameCheck] = useState("");
@@ -82,7 +84,7 @@ function Signup() {
     }
 
     return (
-        <div className="wholePage">
+        <div className="wholePageSignup">
             <form onSubmit={signup_submit} className="form-container login-box">
                 <h1>{LogInMessage}</h1>
                 <h1 className="fontStyle">Please enter the following details</h1>

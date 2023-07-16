@@ -20,7 +20,7 @@ function Homepage() {
 
     return (
             <div className="wholePage">
-                <form>
+                <form className="formPadding">
                     <h1 className="font">Welcome to Pregancy Journal App</h1>
                     <br />
                     <div>

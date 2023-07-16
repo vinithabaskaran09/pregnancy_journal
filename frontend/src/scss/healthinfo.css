@@ -1,7 +1,6 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
-.journal-textarea {
-    width: 100%;
+.healthinfo-textarea {
     padding: 10px;
     font-size: medium;
     resize: horizontal;
@@ -11,16 +10,13 @@
     border: black;
     width: min-content;
     font-family: sans-serif;
+    width: 180px;
 }
 
 .questionFont {
     font-family:sans-serif;
     font-size: 18px;
     font-weight: bold;
-}
-
-textarea {
-    text-align: right;
 }
 
 .fontFormat {

@@ -50,8 +50,9 @@ function Journal(props) {
         navigateTo('/features')
     }
 
-    function pictureMessageAndUrl(messageAndUrl) {
-        setPicMessageAndUrl(messageAndUrl)
+    function pictureMessageAndUrl(message,url) {
+        setPicMessageAndUrl({...picMessageAndUrl, url:message})
+        // setPicMessageAndUrl(messageAndUrl)
         // console.log(picMessageAndUrl)
     };
 
@@ -127,9 +128,9 @@ function Journal(props) {
                 };
                 // console.log(data.pic_message_url)
                 setJournalMessage(journal_message)
+                console.log("ImageAndURL")
+                console.log(data.pic_message_url);
                 setPicMessageAndUrl(data.pic_message_url)
-
-
             })
     }
 
@@ -139,6 +140,12 @@ function Journal(props) {
 
     function journal_creation(event) {
         event.preventDefault();
+        let toBeUploaded = {};
+        let imageUrl = document.getElementsByName("imageUrl")
+        let arrayImageUrl = Array.prototype.slice.call(imageUrl);
+        arrayImageUrl.forEach((htmlelement)=> {
+            toBeUploaded[htmlelement.getAttribute("data-url")] = htmlelement.value
+        });
         fetch("/api/journal_creation", {
             method: "POST",
             mode: "cors",
@@ -149,7 +156,7 @@ function Journal(props) {
                 account_type: props.sessionAccountType,
                 message: event.target.textValue.value,
                 date: date,
-                picMessageAndUrl: picMessageAndUrl
+                picMessageAndUrl: toBeUploaded
             }),
         })
             .then((response) => response.json())
@@ -164,6 +171,7 @@ function Journal(props) {
     return (
         // <h2>HI</h2>
         <div>
+            
             <ul class="nav nav-fill">
                 <li class="nav-item">
                     <button type="submit" onClick={navigate_to_features} class="nav-link active" aria-current="page" href="#"> Menu</button>

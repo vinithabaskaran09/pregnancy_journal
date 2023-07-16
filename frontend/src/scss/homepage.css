@@ -19,11 +19,17 @@
 
 .wholePage{
     background-color:  mistyrose;
-    width: max-content;
+    width: 600px;
+    height: 300px;
+    border: 1px solid #ccc;
 }
 
+.formPadding{
+    padding: 65px;
+}
 
 .font {
     font-family: sans-serif;
     font-size: xx-large;
 }
+
