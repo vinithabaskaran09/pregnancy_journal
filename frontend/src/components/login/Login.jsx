@@ -102,7 +102,7 @@ function Login(props) {
                 <label for="username">Username</label>
             </div>
             <div class="form-floating inputText">
-                <input type="text" class="form-control" id="password" value={password} onChange={onPasswordChange}/> 
+                <input type="password" class="form-control" id="password" value={password} onChange={onPasswordChange}/> 
                 <label for="password">Password</label>
             </div>
             <br/>

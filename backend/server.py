@@ -3,6 +3,7 @@
 from flask import Flask, jsonify, render_template, request, redirect, session
 from model import connect_to_db, db, Family, FamilyMember, Journal, Picture, HealthQuestion, HealthAnswer
 from flask_cors import CORS
+from werkzeug.security import generate_password_hash, check_password_hash
 import json
 
 
@@ -26,7 +27,7 @@ def login():
     if family == None:
         # raise Exception()
         return jsonify({"message":False,"family_id": None})
-    elif family.password == password:
+    elif check_password_hash(family.password,password):
         # redirect('/login')
         return jsonify({"message":True,"family_id":family.family_id})
     else:
@@ -88,7 +89,8 @@ def signup():
         return jsonify({"message":"username is already taken"})
     
     else:
-        new_family = Family(name=username, email=email, password=password)
+        hashed_password = generate_password_hash(password)
+        new_family = Family(name=username, email=email, password=hashed_password)
         db.session.add(new_family)
         db.session.commit()
         return jsonify({"message":"Successfully created the account redirecting to login page"})

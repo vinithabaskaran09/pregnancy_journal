@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Picture(props) {
+    
     const cloudinaryRef = useRef();
     const widgetRef = useRef();
-    //    let uploadedUrl;
 
     // const [showImage, setShowImage] = useState("");
     // const [imageUrls, setImageUrls] = useState([]);

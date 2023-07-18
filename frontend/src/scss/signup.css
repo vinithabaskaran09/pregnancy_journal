@@ -19,7 +19,7 @@
     height: 100vh;
   }
   
-  .login-box {
+.login-box {
     height: fit-content;
     width: 500px;
     margin: 0 auto;
@@ -27,6 +27,12 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
+
+.passwordButton {
+  max-width: min-content;
+}
+
+
 
 .wholePageSignup{
     background-color: mistyrose;

@@ -3,6 +3,9 @@
 // use navigate instead of history fo rreact version 6
 import "../../scss/homepage.css"
 
+import backgroundImage from "../../assets/test.jpg";
+
+
 import { useNavigate } from 'react-router-dom';
 function Homepage() {
     const navigateTo = useNavigate();
@@ -18,8 +21,14 @@ function Homepage() {
 
     }
 
+    const divStyle = {
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+    }
+
     return (
-            <div className="wholePage">
+            <div className="wholePage" style={divStyle}>
                 <form className="formPadding">
                     <h1 className="font">Welcome to Pregancy Journal App</h1>
                     <br />

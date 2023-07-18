@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import Picture from "./Picture";
 
-import "../../scss/journal.css"
+import "../../scss/journal.css";
 
 
 function Journal(props) {
@@ -146,6 +146,7 @@ function Journal(props) {
         arrayImageUrl.forEach((htmlelement)=> {
             toBeUploaded[htmlelement.getAttribute("data-url")] = htmlelement.value
         });
+        
         fetch("/api/journal_creation", {
             method: "POST",
             mode: "cors",
@@ -201,9 +202,6 @@ function Journal(props) {
                 <textarea name="textValue" id="textcontent" className="journal-textarea" row={1000} cols={50} value={journal_message} placeholder={journal_message} onChange={onchange_message} />
                 <br />
                 <button type="submit" className="border border-5">Submit</button>
-                {/* 
-                <button type="submit" onClick={navigate_to_features}> Features Page </button>
-                <button type="submit" onClick={navigate_to_login}>Login Page</button> */}
             </form>
             <br />
             <div>
