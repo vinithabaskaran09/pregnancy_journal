@@ -117,7 +117,7 @@ function Signup() {
                 <div class="form-floating mb-3" >
                     <input type="password" class="form-control" id="password" onChange={passwordValidation} style={{ maxWidth: "200px"}}/>
                     <label for="password">Password</label>                    
-                    <p>{passwordCheck}</p>
+                    <p style={{ maxWidth: "200px"}}>{passwordCheck}</p>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="email" onChange={email_check} />
