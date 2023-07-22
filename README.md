@@ -5,4 +5,5 @@ My pregnancy journal app empowers the expected and new parents to capture and pr
 
 
 Tech Stack and Languages
+------------------------------------------------
 Python, Flask,PostGreSQL,SQLAlchemy, React, Javascript
