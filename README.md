@@ -34,6 +34,39 @@ Health-Info Page
 
 <img width="784" alt="healthinfopage" src="https://github.com/vinithabaskaran09/pregnancy_journal/assets/124478055/9c19dd19-3f01-428d-ac29-8346715c81bd">
 
+Set-Up
+------------------------------------------------
+
+Start a virtual environment
+```
+virtualenv env
+source env/bin/activate
+```
+
+Install Requirements
+
+```pip3 install -r requirements.txt```
+
+Seed the Database
+
+```
+cd backend
+python3 seed_database.py
+```
+
+Frontend Set-Up
+
+Install Vite
+
+https://vitejs.dev/guide/
+
+Start React
+
+```
+npm run dev
+```
+
+
 
 
 
