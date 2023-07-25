@@ -65,7 +65,14 @@ Start React
 ```
 npm run dev
 ```
+Cloudinary SetUp
 
+https://cloudinary.com/documentation/upload_widget
+
+Start Backend Server
+```
+python3 server.py
+```
 
 
 
